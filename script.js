@@ -1,4 +1,5 @@
 let selecionados = new Set();
+
 const container = document.getElementById("lista-container"),
       btnConfirmar = document.getElementById("btn-confirmar");
 
@@ -60,16 +61,23 @@ const form = document.getElementById("form-confirmar");
 
 form.addEventListener("submit", e => {
   e.preventDefault();
-  const nome = document.getElementById("nome").value;
-  const tel = document.getElementById("whatsapp").value.replace(/\D/g, "");
-  const listaSelecionados = Array.from(selecionados).join(", ");
-  const msg = `Oi! Eu sou ${nome} e vou levar os seguintes itens: ${listaSelecionados}`;
+      
+  const nome = document.getElementById("nome").value,
+        tel = document.getElementById("whatsapp").value.replace(/\D/g, ""),
+        listaSelecionados = Array.from(selecionados).join(", "),
+        msg = `Oi! Eu sou ${nome} e vou levar os seguintes itens: ${listaSelecionados}`;
 
   window.open(`https://wa.me/55${tel}?text=${encodeURIComponent(msg)}`);
-  window.open(`https://wa.me/5519989680054?text=${encodeURIComponent(msg)}`);
+  
+  fetch("/api/enviar-mensagem", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, mensagem: msg })
+  });
   
   selecionados.forEach(item => {
     const checkbox = document.getElementById(item);
+        
     if (checkbox) { mcheckbox.closest(".form-check").remove(); }
   });
   
