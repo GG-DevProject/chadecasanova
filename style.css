@@ -1,0 +1,18 @@
+body { background-color: #f8f8ff; }
+
+.section-title {
+  background-color: #4b0082;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.subsection-title {
+  color: #4b0082;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.form-check-label { color: #000; }
+.d-none { display: none !important; }
